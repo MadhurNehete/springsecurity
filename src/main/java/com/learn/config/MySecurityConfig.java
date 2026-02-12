@@ -69,14 +69,14 @@ public class MySecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        String defaultId = "bcrypt"; // you can put (argon2/bcrypt) whatever u want to hash ur password into
+        String defaultId = "bcrypt"; 
         Map<String, PasswordEncoder> encoders = new HashMap<>(16);
         encoders.put("argon2", new Argon2PasswordEncoder(
-                        16,      // this is salt length is will define the size of your hashcode
-                        32,      // hash length - or number of hash characters
-                        1,       // parallelism
-                        65536,   // memory (KB) = 64 MB
-                        3       //  iterations
+                        16,     
+                        32, 
+                        1,       
+                        65536,   
+                        3      
                 )
         );
         encoders.put("bcrypt", new BCryptPasswordEncoder());
