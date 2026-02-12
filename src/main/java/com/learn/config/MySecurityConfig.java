@@ -115,13 +115,13 @@ public class MySecurityConfig {
 //
 //    @Bean
 //    InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
-//        UserDetails admin = User.withUsername("Madhurr")
-//                .password(passwordEncoder.encode("mmadhur@123"))
+//        UserDetails admin = User.withUsername("username")
+//                .password(passwordEncoder.encode("password"))
 //                .roles("ADMIN")
 //                .build();
 //
-//        UserDetails user = User.withUsername("Diana")
-//                .password(passwordEncoder.encode("diana@123"))
+//        UserDetails user = User.withUsername("username")
+//                .password(passwordEncoder.encode("password"))
 //                .roles("USER")
 //                .build();
 //
