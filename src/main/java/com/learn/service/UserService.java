@@ -36,7 +36,6 @@ public class UserService {
 	}
 	
 	public Users getUser(String username) {
-//		return this.list.stream().filter((users) -> users.getUserName().equals(username) );
 		return userRepo.findByUserName(username);
 	}
 	
@@ -44,7 +43,6 @@ public class UserService {
 		Users user1=new Users();
 		user1.setEmail(user.getEmail());
 		user1.setUserName(user.getUserName());
-//		user1.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user1.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user1.setRole(user.getRole());
 		
@@ -64,7 +62,6 @@ public class UserService {
 				
 				existingUser.setEmail(user.getEmail());
 				existingUser.setUserName(user.getUserName());
-//				existingUser.setPassword(this.passwordEncoder.encode(user.getPassword()));
 				existingUser.setPassword((this.passwordEncoder.encode(user.getPassword())));
 				existingUser.setRole(user.getRole());
                 userRepo.save(existingUser);
@@ -75,7 +72,6 @@ public class UserService {
 	@Transactional
 	public void deleteUserIfPasswordMatches(String username,String rawPassword) {
 		Users user=userRepo.findByUserName(username);
-//		System.out.println(rawPassword +"and"+user.getPassword());
 		if(user == null){
 			throw new RuntimeException("User not found");
 			
