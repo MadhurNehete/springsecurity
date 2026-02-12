@@ -6,7 +6,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,15 +18,16 @@ public class UserService {
 	
 	
 	private final UserRepo userRepo;
-	private final BCryptPasswordEncoder bCryptPasswordEncoder;;
+	private final PasswordEncoder passwordEncoder;
+
 
 
 	@Autowired
-	public UserService(UserRepo userRepo, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder) {
 		super();
 		this.userRepo = userRepo;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-		
+		this.passwordEncoder = passwordEncoder;
+
 	}
 
 	public List<Users> getAllUsers(){
@@ -43,7 +44,8 @@ public class UserService {
 		Users user1=new Users();
 		user1.setEmail(user.getEmail());
 		user1.setUserName(user.getUserName());
-		user1.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+//		user1.setPassword(this.passwordEncoder.encode(user.getPassword()));
+		user1.setPassword(this.passwordEncoder.encode(user.getPassword()));
 		user1.setRole(user.getRole());
 		
 		return userRepo.save(user1);
@@ -62,7 +64,8 @@ public class UserService {
 				
 				existingUser.setEmail(user.getEmail());
 				existingUser.setUserName(user.getUserName());
-				existingUser.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+//				existingUser.setPassword(this.passwordEncoder.encode(user.getPassword()));
+				existingUser.setPassword((this.passwordEncoder.encode(user.getPassword())));
 				existingUser.setRole(user.getRole());
                 userRepo.save(existingUser);
 	
@@ -77,9 +80,9 @@ public class UserService {
 			throw new RuntimeException("User not found");
 			
 		}
-		if(!bCryptPasswordEncoder.matches(rawPassword,user.getPassword())) {
+		if(!passwordEncoder.matches(rawPassword,user.getPassword())) {
              throw new RuntimeException("Invalid Password");	
-}
+        }
       
 		userRepo.delete(user);
 }
